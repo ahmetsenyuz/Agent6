@@ -6,7 +6,7 @@ namespace Agent6.Logging
     public static class Logger
     {
         private static readonly object _lock = new object();
-        
+
         public static void LogError(string message)
         {
             lock (_lock)
@@ -23,7 +23,7 @@ namespace Agent6.Logging
                 }
             }
         }
-        
+
         public static void LogInfo(string message)
         {
             lock (_lock)
