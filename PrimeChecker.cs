@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace Agent6
 {
@@ -23,6 +24,7 @@ namespace Agent6
                 return false;
 
             // Check for divisors from 3 up to the square root of the number
+            // Only check odd divisors
             for (int i = 3; i * i <= number; i += 2)
             {
                 if (number % i == 0)
@@ -30,6 +32,21 @@ namespace Agent6
             }
 
             return true;
+        }
+        
+        /// <summary>
+        /// Determines whether the specified number is prime with performance measurement.
+        /// </summary>
+        /// <param name="number">The number to check.</param>
+        /// <returns>true if the number is prime; otherwise, false.</returns>
+        public static bool IsPrimeWithTiming(int number)
+        {
+            var stopwatch = Stopwatch.StartNew();
+            bool result = IsPrime(number);
+            stopwatch.Stop();
+            
+            Console.WriteLine($"Prime check for {number} took {stopwatch.ElapsedMilliseconds} ms");
+            return result;
         }
     }
 }
