@@ -10,6 +10,8 @@ namespace Agent6
         {
             Console.WriteLine("Prime Number Checker");
             Console.WriteLine("====================");
+            Console.WriteLine("Welcome to the Prime Number Checker application!");
+            Console.WriteLine("This tool will help you determine if numbers are prime.");
             Console.WriteLine("Enter integers to check if they are prime.");
             Console.WriteLine("Press ESC key to exit.");
             Console.WriteLine();
@@ -40,7 +42,33 @@ namespace Agent6
                     try
                     {
                         bool isPrime = PrimeChecker.IsPrimeWithTiming(number);
-                        Console.WriteLine($"{number} is {(isPrime ? "" : "not ")}prime.");
+                        
+                        // Display result with color coding
+                        if (isPrime)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine($"{number} is prime.");
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine($"{number} is not prime.");
+                            Console.ResetColor();
+                        }
+                        
+                        // Provide educational tip
+                        if (isPrime)
+                        {
+                            Console.WriteLine("Tip: A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.");
+                        }
+                        else if (number > 1)
+                        {
+                            Console.WriteLine("Tip: Non-prime numbers are composite numbers that can be expressed as products of prime factors.");
+                        }
+                        
+                        // Show statistics
+                        Console.WriteLine($"Statistics: Numbers checked: {PrimeChecker.NumbersChecked}, Primes found: {PrimeChecker.PrimesFound}");
                     }
                     catch (InvalidInputException ex)
                     {
@@ -93,7 +121,6 @@ namespace Agent6
                             }
                             else
                             {
-                                // This shouldn't happen given our checks, but just in case
                                 Console.WriteLine("Unexpected error parsing input. Please enter a valid integer or press ESC to exit.");
                             }
                         }
