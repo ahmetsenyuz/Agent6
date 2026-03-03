@@ -1,4 +1,6 @@
 using System;
+using Agent6.Exceptions;
+using Agent6.Logging;
 
 namespace Agent6
 {
@@ -35,8 +37,31 @@ namespace Agent6
                 // Try to parse the input as an integer
                 if (int.TryParse(input, out int number))
                 {
-                    bool isPrime = PrimeChecker.IsPrimeWithTiming(number);
-                    Console.WriteLine($"{number} is {(isPrime ? "" : "not ")}prime.");
+                    try
+                    {
+                        bool isPrime = PrimeChecker.IsPrimeWithTiming(number);
+                        Console.WriteLine($"{number} is {(isPrime ? "" : "not ")}prime.");
+                    }
+                    catch (InvalidInputException ex)
+                    {
+                        Console.WriteLine($"Invalid input error: {ex.Message}");
+                        Logger.LogError($"Invalid input error: {ex.Message}");
+                    }
+                    catch (CalculationOverflowException ex)
+                    {
+                        Console.WriteLine($"Calculation overflow error: {ex.Message}");
+                        Logger.LogError($"Calculation overflow error: {ex.Message}");
+                    }
+                    catch (PrimeCheckException ex)
+                    {
+                        Console.WriteLine($"Prime check error: {ex.Message}");
+                        Logger.LogError($"Prime check error: {ex.Message}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Unexpected error during prime check: {ex.Message}");
+                        Logger.LogError($"Unexpected error during prime check: {ex.Message}");
+                    }
                 }
                 else
                 {
@@ -68,6 +93,7 @@ namespace Agent6
                             }
                             else
                             {
+                                // This shouldn't happen given our checks, but just in case
                                 Console.WriteLine("Unexpected error parsing input. Please enter a valid integer or press ESC to exit.");
                             }
                         }
