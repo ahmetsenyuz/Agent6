@@ -18,3 +18,7 @@ dotnet run
 - Performance measurement for prime checks
 - Console-based user interface
 - Input validation for integer values
+- Educational tips about prime numbers
+- Statistics tracking for checked numbers and primes found
+- Color-coded output for better readability
+- Responsive interface with immediate feedback
