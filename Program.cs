@@ -35,7 +35,7 @@ namespace Agent6
                 // Try to parse the input as an integer
                 if (int.TryParse(input, out int number))
                 {
-                    bool isPrime = PrimeChecker.IsPrime(number);
+                    bool isPrime = PrimeChecker.IsPrimeWithTiming(number);
                     Console.WriteLine($"{number} is {(isPrime ? "" : "not ")}prime.");
                 }
                 else
@@ -46,7 +46,7 @@ namespace Agent6
                         // Handle decimal numbers
                         Console.WriteLine("Invalid input. Decimal numbers are not allowed. Please enter a valid integer or press ESC to exit.");
                     }
-                    else if (input.Any(char.IsLetter))
+                    else if (input.Any(c => !char.IsLetter(c)))
                     {
                         // Handle strings with letters
                         Console.WriteLine("Invalid input. Non-numeric strings are not allowed. Please enter a valid integer or press ESC to exit.");
