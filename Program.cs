@@ -6,21 +6,37 @@ namespace Agent6
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
-            
-            // Test the PrimeChecker
-            Console.WriteLine("Testing PrimeChecker:");
-            int[] testNumbers = { -5, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 17, 25, 29 };
-            
-            foreach (int num in testNumbers)
-            {
-                bool isPrime = PrimeChecker.IsPrime(num);
-                Console.WriteLine($"{num} is {(isPrime ? "" : "not ")}prime");
-            }
+            Console.WriteLine("Prime Number Checker");
+            Console.WriteLine("====================");
+            Console.WriteLine("Enter integers to check if they are prime.");
+            Console.WriteLine("Press ESC key to exit.");
+            Console.WriteLine();
 
-            // Wait for user input before closing
-            Console.WriteLine("Press any key to exit...");
-            Console.ReadKey();
+            while (true)
+            {
+                Console.Write("Enter an integer (or ESC to exit): ");
+                string input = Console.ReadLine();
+                
+                // Check if user wants to exit
+                if (Console.KeyAvailable && Console.ReadKey(true).Key == ConsoleKey.Escape)
+                {
+                    Console.WriteLine("\nExiting application...");
+                    break;
+                }
+                
+                // Try to parse the input as an integer
+                if (int.TryParse(input, out int number))
+                {
+                    bool isPrime = PrimeChecker.IsPrime(number);
+                    Console.WriteLine($"{number} is {(isPrime ? "" : "not ")}prime.");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid input. Please enter a valid integer or press ESC to exit.");
+                }
+                
+                Console.WriteLine();
+            }
         }
     }
 }
