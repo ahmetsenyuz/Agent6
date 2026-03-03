@@ -42,7 +42,7 @@ namespace Agent6
                     try
                     {
                         bool isPrime = PrimeChecker.IsPrimeWithTiming(number);
-                        
+
                         // Display result with color coding
                         if (isPrime)
                         {
@@ -56,7 +56,7 @@ namespace Agent6
                             Console.WriteLine($"{number} is not prime.");
                             Console.ResetColor();
                         }
-                        
+
                         // Provide educational tip
                         if (isPrime)
                         {
@@ -66,7 +66,7 @@ namespace Agent6
                         {
                             Console.WriteLine("Tip: Non-prime numbers are composite numbers that can be expressed as products of prime factors.");
                         }
-                        
+
                         // Show statistics
                         Console.WriteLine($"Statistics: Numbers checked: {PrimeChecker.NumbersChecked}, Primes found: {PrimeChecker.PrimesFound}");
                     }
@@ -91,47 +91,43 @@ namespace Agent6
                         Logger.LogError($"Unexpected error during prime check: {ex.Message}");
                     }
                 }
+                else if (input.Contains(".") || input.Contains(","))
+                {
+                    // Handle decimal numbers
+                    Console.WriteLine("Invalid input. Decimal numbers are not allowed. Please enter a valid integer or press ESC to exit.");
+                }
+                else if (input.Any(c => !char.IsLetter(c)))
+                {
+                    // Handle strings with letters
+                    Console.WriteLine("Invalid input. Non-numeric strings are not allowed. Please enter a valid integer or press ESC to exit.");
+                }
+                else if (input.Any(c => !char.IsDigit(c) && c != '-' && c != '+'))
+                {
+                    // Handle strings with special characters
+                    Console.WriteLine("Invalid input. Special characters are not allowed. Please enter a valid integer or press ESC to exit.");
+                }
                 else
                 {
-                    // Handle non-numeric strings
-                    if (input.Contains(".") || input.Contains(","))
+                    // Handle very large numbers that might cause overflow
+                    try
                     {
-                        // Handle decimal numbers
-                        Console.WriteLine("Invalid input. Decimal numbers are not allowed. Please enter a valid integer or press ESC to exit.");
-                    }
-                    else if (input.Any(c => !char.IsLetter(c)))
-                    {
-                        // Handle strings with letters
-                        Console.WriteLine("Invalid input. Non-numeric strings are not allowed. Please enter a valid integer or press ESC to exit.");
-                    }
-                    else if (input.Any(c => !char.IsDigit(c) && c != '-' && c != '+'))
-                    {
-                        // Handle strings with special characters
-                        Console.WriteLine("Invalid input. Special characters are not allowed. Please enter a valid integer or press ESC to exit.");
-                    }
-                    else
-                    {
-                        // Handle very large numbers that might cause overflow
-                        try
-                        {
-                            long longNumber = long.Parse(input);
-                            if (longNumber > int.MaxValue || longNumber < int.MinValue)
-                            {
-                                Console.WriteLine("Invalid input. Number is too large. Please enter a valid integer or press ESC to exit.");
-                            }
-                            else
-                            {
-                                Console.WriteLine("Unexpected error parsing input. Please enter a valid integer or press ESC to exit.");
-                            }
-                        }
-                        catch (OverflowException)
+                        long longNumber = long.Parse(input);
+                        if (longNumber > int.MaxValue || longNumber < int.MinValue)
                         {
                             Console.WriteLine("Invalid input. Number is too large. Please enter a valid integer or press ESC to exit.");
                         }
-                        catch (FormatException)
+                        else
                         {
-                            Console.WriteLine("Invalid input. Please enter a valid integer or press ESC to exit.");
+                            Console.WriteLine("Unexpected error parsing input. Please enter a valid integer or press ESC to exit.");
                         }
+                    }
+                    catch (OverflowException)
+                    {
+                        Console.WriteLine("Invalid input. Number is too large. Please enter a valid integer or press ESC to exit.");
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid integer or press ESC to exit.");
                     }
                 }
 
