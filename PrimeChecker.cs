@@ -11,6 +11,16 @@ namespace Agent6
     public class PrimeChecker
     {
         /// <summary>
+        /// Counter for numbers checked
+        /// </summary>
+        public static int NumbersChecked { get; set; } = 0;
+        
+        /// <summary>
+        /// Counter for primes found
+        /// </summary>
+        public static int PrimesFound { get; set; } = 0;
+
+        /// <summary>
         /// Determines whether the specified number is prime.
         /// </summary>
         /// <param name="number">The number to check.</param>
@@ -19,6 +29,8 @@ namespace Agent6
         {
             try
             {
+                NumbersChecked++;
+                
                 // Handle edge cases
                 if (number <= 1)
                     return false;
@@ -38,6 +50,7 @@ namespace Agent6
                         return false;
                 }
 
+                PrimesFound++;
                 return true;
             }
             catch (Exception ex)
