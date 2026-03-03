@@ -3,6 +3,9 @@ using System.Diagnostics;
 
 namespace Agent6
 {
+    /// <summary>
+    /// Provides methods for checking if numbers are prime.
+    /// </summary>
     public class PrimeChecker
     {
         /// <summary>
@@ -33,7 +36,7 @@ namespace Agent6
 
             return true;
         }
-        
+
         /// <summary>
         /// Determines whether the specified number is prime with performance measurement.
         /// </summary>
@@ -44,7 +47,7 @@ namespace Agent6
             var stopwatch = Stopwatch.StartNew();
             bool result = IsPrime(number);
             stopwatch.Stop();
-            
+
             Console.WriteLine($"Prime check for {number} took {stopwatch.ElapsedMilliseconds} ms");
             return result;
         }
