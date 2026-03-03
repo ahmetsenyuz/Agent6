@@ -14,7 +14,7 @@ namespace Agent6
         /// Counter for numbers checked
         /// </summary>
         public static int NumbersChecked { get; set; } = 0;
-        
+
         /// <summary>
         /// Counter for primes found
         /// </summary>
@@ -30,7 +30,7 @@ namespace Agent6
             try
             {
                 NumbersChecked++;
-                
+
                 // Handle edge cases
                 if (number <= 1)
                     return false;
@@ -74,6 +74,7 @@ namespace Agent6
                 stopwatch.Stop();
 
                 Logger.LogInfo($"Prime check for {number} took {stopwatch.ElapsedMilliseconds} ms");
+
                 return result;
             }
             catch (Exception ex)
