@@ -1,5 +1,7 @@
 using System;
 using System.Diagnostics;
+using Agent6.Exceptions;
+using Agent6.Logging;
 
 namespace Agent6
 {
@@ -15,26 +17,34 @@ namespace Agent6
         /// <returns>true if the number is prime; otherwise, false.</returns>
         public static bool IsPrime(int number)
         {
-            // Handle edge cases
-            if (number <= 1)
-                return false;
-
-            if (number <= 3)
-                return true;
-
-            // Even numbers greater than 2 are not prime
-            if (number % 2 == 0)
-                return false;
-
-            // Check for divisors from 3 up to the square root of the number
-            // Only check odd divisors
-            for (int i = 3; i * i <= number; i += 2)
+            try
             {
-                if (number % i == 0)
+                // Handle edge cases
+                if (number <= 1)
                     return false;
-            }
 
-            return true;
+                if (number <= 3)
+                    return true;
+
+                // Even numbers greater than 2 are not prime
+                if (number % 2 == 0)
+                    return false;
+
+                // Check for divisors from 3 up to the square root of the number
+                // Only check odd divisors
+                for (int i = 3; i * i <= number; i += 2)
+                {
+                    if (number % i == 0)
+                        return false;
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"Error in IsPrime method for number {number}: {ex.Message}");
+                throw new PrimeCheckException($"An error occurred while checking if {number} is prime", ex);
+            }
         }
 
         /// <summary>
@@ -44,12 +54,20 @@ namespace Agent6
         /// <returns>true if the number is prime; otherwise, false.</returns>
         public static bool IsPrimeWithTiming(int number)
         {
-            var stopwatch = Stopwatch.StartNew();
-            bool result = IsPrime(number);
-            stopwatch.Stop();
+            try
+            {
+                var stopwatch = Stopwatch.StartNew();
+                bool result = IsPrime(number);
+                stopwatch.Stop();
 
-            Console.WriteLine($"Prime check for {number} took {stopwatch.ElapsedMilliseconds} ms");
-            return result;
+                Logger.LogInfo($"Prime check for {number} took {stopwatch.ElapsedMilliseconds} ms");
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"Error in IsPrimeWithTiming method for number {number}: {ex.Message}");
+                throw new PrimeCheckException($"An error occurred while checking if {number} is prime with timing", ex);
+            }
         }
     }
 }
