@@ -14,7 +14,7 @@ namespace Agent6.Test
             var primeChecker = new PrimeChecker();
             var input = "7";
             var expectedOutput = "7 is a prime number.";
-            
+
             // Act & Assert
             // This test simulates the complete user interaction loop
             // In a real scenario, we would capture console input/output
@@ -28,7 +28,7 @@ namespace Agent6.Test
         {
             // Arrange
             var primeChecker = new PrimeChecker();
-            
+
             // Act & Assert
             // Test various edge cases through the complete user interaction
             Assert.False(primeChecker.IsPrime(0));
